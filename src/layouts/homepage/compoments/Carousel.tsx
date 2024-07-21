@@ -17,7 +17,7 @@ const Carousel = () => {
                         "carousel-item active" data-bs-interval="10000">
                         <div className="row align-items-center">
                             <div className="col-5 text-center">
-                                <img src={require('../../../imges/books/01.jpg')} className=""
+                                <img src={'../../../imges/books/01.jpg'} className=""
                                     style={{ width: '150px' }} />
                             </div>
                             <div className="col-7">
@@ -28,7 +28,7 @@ const Carousel = () => {
                     </div>
                     <div className=
                         "carousel-item" data-bs-interval="2000">
-                        <img src={require('../../../imges/books/02.jpg')} className=
+                        <img src={'../../../imges/books/02.jpg'} className=
                             "" style={{ width: '150px' }} />
                         <div className="col-5 text-center">
                             <h5>Second slide label</h5>
@@ -37,7 +37,7 @@ const Carousel = () => {
                     </div>
                     <div className=
                         "carousel-item">
-                        <img src={require('../../../imges/books/03.jpg')} className=
+                        <img src={'../../../imges/books/03.jpg'} className=
                             "" style={{ width: '150px' }} />
                         <div className="col-5 text-center">
                             <h5>Third slide label</h5>
