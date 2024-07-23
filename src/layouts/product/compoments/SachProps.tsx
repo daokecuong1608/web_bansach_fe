@@ -1,22 +1,25 @@
 import React from 'react';
 import Book from '../../../models/Book';
-interface BookProps {
+import SachModel from '../../../models/SachModel';
 
-    book: Book;
+
+interface SachPropsInterface {
+    sach: SachModel;
 }
-const BookProps: React.FC<BookProps> = ({ book }) => {
+
+const SachProps: React.FC<SachPropsInterface> = (props) => {
     return (
         <div className="col-md-3 mt-2">
             <div className="card">
-                <img src={book.imageUrl} className="card-img-top"
-                    alt={book.title} style={{ height: '200px' }} />
+                <img className="card-img-top"
+                    alt={props.sach.tenSach} style={{ height: '200px' }} />
 
                 <div className="card-body">
-                    <h5 className="card-title">{book.title}</h5>
-                    <p className="card-text">{book.description}</p>
+                    <h5 className="card-title">{props.sach.tenSach}</h5>
+                    <p className="card-text">{props.sach.moTa}</p>
                     <div className="price">
                         <span className="original-price">
-                            <strong> {book.originalPrice}</strong>
+                            <strong> {props.sach.giaBan}</strong>
                         </span>
                     </div>
 
@@ -37,4 +40,4 @@ const BookProps: React.FC<BookProps> = ({ book }) => {
         </div>
     )
 }
-export default BookProps;
+export default SachProps;

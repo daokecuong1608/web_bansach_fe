@@ -1,4 +1,5 @@
-import Lits from "../product/List";
+import DanhSachSanPham from "../product/DanhSachSanPham";
+
 import Banner from "./compoments/Banner";
 import Carousel from "./compoments/Carousel";
 
@@ -7,7 +8,7 @@ const HomePage = () => {
         <div>
             <Banner />
             <Carousel />
-            <Lits />
+            <DanhSachSanPham />
         </div>
     )
 }
