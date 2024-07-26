@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Book from '../../../models/Book';
 import SachModel from '../../../models/SachModel';
+import HinhAnhModel from '../../../models/HinhAnhModel';
+import { lay1AnhCuaMotSach, layToanBoAnhCuaSach } from '../../../api/HinhAnhApi';
 
 
 interface SachPropsInterface {
@@ -8,11 +10,57 @@ interface SachPropsInterface {
 }
 
 const SachProps: React.FC<SachPropsInterface> = (props) => {
+
+    // lấy dữ liệu từ props( truyền từ component cha xuống)
+    const maSach: number = props.sach.maSach;
+    const [danhSachHinhAnh, setDanhSachHinhAnh] = useState<HinhAnhModel[]>([]);
+    const [dangTaiDuLieu, setDangTaiDuLieu] = useState(true);
+    const [baoLoi, setBaoLoi] = useState(null);
+
+    useEffect(() => {
+
+        lay1AnhCuaMotSach(maSach).then(
+            hinhAnhData => {
+                setDanhSachHinhAnh(hinhAnhData);//gán gia trị mà mình lấy được từ server vào danhSachQuyenSach
+                setDangTaiDuLieu(false);//đã tải xong dữ liệu
+            }
+        ).catch(
+            error => {
+                setDangTaiDuLieu(false);//đã tải xong dữ liệu
+                setBaoLoi(error.message);//gặp lỗi thì báo lỗi
+            });
+
+    }, [])//chỉ gọi 1 lần 
+
+    if (dangTaiDuLieu) {
+        return (
+            <div>
+                <h1>Đang tải dữ liệu</h1>
+            </div>
+        )
+    }
+    if (baoLoi) {
+        return (
+            <div>
+                <h1>Gặp lỗi : {baoLoi}</h1>
+            </div>
+        )
+    }
+
+    let duLieuAnh: string = "";
+    if (danhSachHinhAnh[0] && danhSachHinhAnh[0].duLieuAnh) {
+        duLieuAnh = danhSachHinhAnh[0].duLieuAnh;
+    }
+
     return (
         <div className="col-md-3 mt-2">
             <div className="card">
-                <img className="card-img-top"
-                    alt={props.sach.tenSach} style={{ height: '200px' }} />
+                {/* kha nang khong co du lieu anh */}
+
+                <img src={duLieuAnh}
+                    className="card-img-top"
+                    alt={props.sach.tenSach}
+                    style={{ height: '200px' }} />
 
                 <div className="card-body">
                     <h5 className="card-title">{props.sach.tenSach}</h5>

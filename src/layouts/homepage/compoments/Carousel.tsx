@@ -1,49 +1,71 @@
-const Carousel = () => {
+
+import { useEffect, useState } from "react";
+import { error } from "console";
+import React from "react";
+import { layBaBoSachNew } from "../../../api/SachApi";
+import SachModel from "../../../models/SachModel";
+import CarouselItem from "./CarouselItem";
+const Carousel: React.FC = () => {
+    const [danhSachQuyenSach, setDanhSachQuyenSach] = useState<SachModel[]>([]);
+    const [dangTaiDuLieu, setDangTaiDuLieu] = useState(true);
+    const [baoLoi, setBaoLoi] = useState(null);
+
+    useEffect(() => {
+
+        layBaBoSachNew().then(
+            sachData => {
+                setDanhSachQuyenSach(sachData);//gán gia trị mà mình lấy được từ server vào danhSachQuyenSach
+                setDangTaiDuLieu(false);//đã tải xong dữ liệu
+            }
+        ).catch(
+            error => {
+                setDangTaiDuLieu(false);//đã tải xong dữ liệu
+                setBaoLoi(error.message);//gặp lỗi thì báo lỗi
+            });
+
+    }, [])//chỉ gọi 1 lần 
+    if (dangTaiDuLieu) {
+        return (
+            <div>
+                <h1>Đang tải dữ liệu</h1>
+            </div>
+        )
+    }
+    if (baoLoi) {
+        return (
+            <div>
+                <h1>Gặp lỗi : {baoLoi}</h1>
+            </div>
+        )
+    }
+
+
+
     return (
         <div>
 
             <div id="carouselExampleDark" className=
                 "carousel carousel-dark slide">
-                <div className=
-                    "carousel-indicators">
-                    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" className=
-                        "active" aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                </div>
+
                 <div className=
                     "carousel-inner">
-                    <div className=
-                        "carousel-item active" data-bs-interval="10000">
-                        <div className="row align-items-center">
-                            <div className="col-5 text-center">
-                                <img src={'../../../imges/books/01.jpg'} className=""
-                                    style={{ width: '150px' }} />
-                            </div>
-                            <div className="col-7">
-                                <h5>First slide label</h5>
-                                <p>Some representative placeholder content for the first slide.</p>
-                            </div>
-                        </div>
+                    <div className="carousel-item active" data-bs-interval="10000">
+                        <CarouselItem
+                            key={0}
+                            sach={danhSachQuyenSach[0]} />
                     </div>
-                    <div className=
-                        "carousel-item" data-bs-interval="2000">
-                        <img src={'../../../imges/books/02.jpg'} className=
-                            "" style={{ width: '150px' }} />
-                        <div className="col-5 text-center">
-                            <h5>Second slide label</h5>
-                            <p>Some representative placeholder content for the second slide.</p>
-                        </div>
+                    <div className="carousel-item" data-bs-interval="10000">
+                        <CarouselItem
+                            key={1}
+                            sach={danhSachQuyenSach[1]} />
                     </div>
-                    <div className=
-                        "carousel-item">
-                        <img src={'../../../imges/books/03.jpg'} className=
-                            "" style={{ width: '150px' }} />
-                        <div className="col-5 text-center">
-                            <h5>Third slide label</h5>
-                            <p>Some representative placeholder content for the third slide.</p>
-                        </div>
+
+                    <div className="carousel-item" data-bs-interval="10000">
+                        <CarouselItem
+                            key={2}
+                            sach={danhSachQuyenSach[2]} />
                     </div>
+
                 </div>
                 <button className=
                     "carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">

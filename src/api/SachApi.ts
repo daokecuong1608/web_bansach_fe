@@ -1,30 +1,15 @@
 import React from "react";
 import { Type } from "typescript";
 import SachModel from "../models/SachModel";
+import { My_Request } from "./My_Request";
 
-//chờ để lấy dữ liệu từ server
-async function request(duongDan: string) {
-    //fetch là hàm lấy dữ liệu từ server(truy vấn đuường dẫn)
-    const response = await fetch(duongDan);
-    //nEU kiem tra xem có lỗi không
-    if (!response.ok) {
-        throw new Error('Không thể truy cập được server ${duongDan}');
-    }
-    //trả về toàn bộ dữ liệu bên trong 
-    return response.json();
-}
-
-//lấy tất cả các sách từ server
-//Promise<SachModel[]> : trả về một mảng các sách
-export async function layToanBoSach(): Promise<SachModel[]> {
+async function laySach(duongDan: string): Promise<SachModel[]> {
     //lấy dữ liệu từ server
     const ketQua: SachModel[] = [];
 
-    //xấc định endpoint
-    const duongDan: string = 'http://localhost:8080/sach';
 
     //Gọi phuonmg thức request để lấy dữ liệu
-    const reponse = await request(duongDan);
+    const reponse = await My_Request(duongDan);
 
     //lay ra json tù sach dữ liệu
     const reponseData = reponse._embedded.saches;
@@ -61,6 +46,20 @@ export async function layToanBoSach(): Promise<SachModel[]> {
 
     }
 
-    console.log(ketQua);
+    // console.log(ketQua);
     return ketQua;
+}
+
+
+//lấy tất cả các sách từ server
+//Promise<SachModel[]> : trả về một mảng các sách
+export async function layToanBoSach(): Promise<SachModel[]> {
+    //xấc định endpoint
+    const duongDan: string = 'http://localhost:8080/sach?sort=maSach,desc';
+    return laySach(duongDan);
+}
+export async function layBaBoSachNew(): Promise<SachModel[]> {
+    //xấc định endpoint
+    const duongDan: string = 'http://localhost:8080/sach?sort=maSach,desc&page=0&size=3';
+    return laySach(duongDan);
 }
