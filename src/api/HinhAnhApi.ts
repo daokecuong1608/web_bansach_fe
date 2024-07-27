@@ -42,3 +42,5 @@ export async function lay1AnhCuaMotSach(maSach: number): Promise<HinhAnhModel[]>
     return layAnhCuaSach(duongDan);
 
 }
+//async : xử lý bất đồng bộ (SD từ khoá await) : => đợi 1 kết quả trả về từ server (Promise) khi tiếp tục thực hiện các lệnh tiếp theo
+//Promise : trả về một giá trị

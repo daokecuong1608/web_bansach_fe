@@ -6,8 +6,11 @@ import Carousel from "./compoments/Carousel";
 const HomePage = () => {
     return (
         <div>
+
             <Banner />
+            {/* slideshow */}
             <Carousel />
+            {/* in ra danh sách sản phẩm */}
             <DanhSachSanPham />
         </div>
     )

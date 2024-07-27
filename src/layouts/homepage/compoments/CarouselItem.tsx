@@ -3,12 +3,13 @@ import Book from '../../../models/Book';
 import SachModel from '../../../models/SachModel';
 import HinhAnhModel from '../../../models/HinhAnhModel';
 import { lay1AnhCuaMotSach } from '../../../api/HinhAnhApi';
-
+import './CarouselItem.css';
 
 interface CarouselItemInterface {
     sach: SachModel;
 }
 
+//from hiển thị sách từ cơ sở dữ liệu(slideshow)
 const CarouselItem: React.FC<CarouselItemInterface> = (props) => {
 
     // lấy dữ liệu từ props( truyền từ component cha xuống)
@@ -16,12 +17,10 @@ const CarouselItem: React.FC<CarouselItemInterface> = (props) => {
     const [danhSachHinhAnh, setDanhSachHinhAnh] = useState<HinhAnhModel[]>([]);
     const [dangTaiDuLieu, setDangTaiDuLieu] = useState(true);
     const [baoLoi, setBaoLoi] = useState(null);
-
     useEffect(() => {
-
         lay1AnhCuaMotSach(maSach).then(
-            sachData => {
-                setDanhSachHinhAnh(danhSachHinhAnh);//gán gia trị mà mình lấy được từ server vào danhSachQuyenSach
+            hinhAnhData => {
+                setDanhSachHinhAnh(hinhAnhData);//gán gia trị mà mình lấy được từ server vào danhSachQuyenSach
                 setDangTaiDuLieu(false);//đã tải xong dữ liệu
             }
         ).catch(
@@ -46,22 +45,22 @@ const CarouselItem: React.FC<CarouselItemInterface> = (props) => {
             </div>
         )
     }
-
     let duLieuAnh: string = "";
     if (danhSachHinhAnh[0] && danhSachHinhAnh[0].duLieuAnh) {
         duLieuAnh = danhSachHinhAnh[0].duLieuAnh;
     }
 
     return (
-        <div className="row align-items-center">
-            <div className="col-5 text-center">
+        <div className="centered-row">
+            <div className="form-content">
                 <img src={duLieuAnh}
-                    className="float-end"
-                    style={{ width: '150px' }} />
-            </div>
-            <div className="col-7">
-                <h5>{props.sach.tenSach}</h5>
-                <p>{props.sach.moTa}</p>
+                    className="form-image"
+                />
+
+                <div className="form-text">
+                    <h5>{props.sach.tenSach}</h5>
+                    <p>{props.sach.moTa}</p>
+                </div>
             </div>
         </div>
     )

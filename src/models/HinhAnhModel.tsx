@@ -1,3 +1,4 @@
+// Note: HinhAnhModel lấy các thuộc tính của hình ảnh từ server
 class HinhAnhModel {
     maHinhAnh: number;
     tenHinhAnh?: string;

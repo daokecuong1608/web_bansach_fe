@@ -1,0 +1,23 @@
+.centered-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full viewport height */
+}
+
+.form-content {
+    display: flex;
+    align-items: center;
+    border: 1px solid #231c1c; /* Optional: for visual separation */
+    padding: 10px; /* Optional: for spacing */
+    background-color: #fff; /* Optional: for background color */
+}
+
+.form-image {
+    width: 400px;
+    margin-right: 10px; /* Space between image and text */
+}
+
+.form-text {
+    flex: 1;
+}

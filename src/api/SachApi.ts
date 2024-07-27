@@ -3,17 +3,26 @@ import { Type } from "typescript";
 import SachModel from "../models/SachModel";
 import { My_Request } from "./My_Request";
 
-async function laySach(duongDan: string): Promise<SachModel[]> {
+interface KetQuaInterface {
+    ketQua: SachModel[];
+    tongSoTrang: number;
+    tongSoSach: number;
+}
+
+async function laySach(duongDan: string): Promise<KetQuaInterface> {
     //lấy dữ liệu từ server
     const ketQua: SachModel[] = [];
-
-
     //Gọi phuonmg thức request để lấy dữ liệu
-    const reponse = await My_Request(duongDan);
-
+    const response = await My_Request(duongDan);
     //lay ra json tù sach dữ liệu
-    const reponseData = reponse._embedded.saches;
-    // console.log(reponse);
+    const reponseData = response._embedded.saches;
+    console.log(response);
+
+
+    //lấy thong tin trang 
+    const tongSoTrang: number = response.page.totalPages;
+    const tongSoSach: number = response.page.totalElements;
+
     for (const key in reponseData) {
         ketQua.push({
             maSach: reponseData[key].maSach,
@@ -46,19 +55,20 @@ async function laySach(duongDan: string): Promise<SachModel[]> {
 
     }
 
-    // console.log(ketQua);
-    return ketQua;
+    console.log(ketQua);
+    return { ketQua: ketQua, tongSoTrang: tongSoTrang, tongSoSach: tongSoSach };
 }
 
 
 //lấy tất cả các sách từ server
 //Promise<SachModel[]> : trả về một mảng các sách
-export async function layToanBoSach(): Promise<SachModel[]> {
+export async function layToanBoSach(trang: number): Promise<KetQuaInterface> {
     //xấc định endpoint
-    const duongDan: string = 'http://localhost:8080/sach?sort=maSach,desc';
+    const duongDan: string = `http://localhost:8080/sach?sort=maSach,desc&size=8&page=${trang}`;
     return laySach(duongDan);
 }
-export async function layBaBoSachNew(): Promise<SachModel[]> {
+
+export async function layBaBoSachNew(): Promise<KetQuaInterface> {
     //xấc định endpoint
     const duongDan: string = 'http://localhost:8080/sach?sort=maSach,desc&page=0&size=3';
     return laySach(duongDan);

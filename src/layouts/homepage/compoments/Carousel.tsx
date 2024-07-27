@@ -5,16 +5,19 @@ import React from "react";
 import { layBaBoSachNew } from "../../../api/SachApi";
 import SachModel from "../../../models/SachModel";
 import CarouselItem from "./CarouselItem";
+
+
+//slideshow 
 const Carousel: React.FC = () => {
     const [danhSachQuyenSach, setDanhSachQuyenSach] = useState<SachModel[]>([]);
     const [dangTaiDuLieu, setDangTaiDuLieu] = useState(true);
     const [baoLoi, setBaoLoi] = useState(null);
 
-    useEffect(() => {
 
+    useEffect(() => {
         layBaBoSachNew().then(
-            sachData => {
-                setDanhSachQuyenSach(sachData);//gán gia trị mà mình lấy được từ server vào danhSachQuyenSach
+            kq => {
+                setDanhSachQuyenSach(kq.ketQua);//gán gia trị mà mình lấy được từ server vào danhSachQuyenSach
                 setDangTaiDuLieu(false);//đã tải xong dữ liệu
             }
         ).catch(
@@ -40,13 +43,11 @@ const Carousel: React.FC = () => {
     }
 
 
-
+    //lầy từ server về 3 quyển sách trên sildeShow
     return (
         <div>
-
             <div id="carouselExampleDark" className=
                 "carousel carousel-dark slide">
-
                 <div className=
                     "carousel-inner">
                     <div className="carousel-item active" data-bs-interval="10000">
