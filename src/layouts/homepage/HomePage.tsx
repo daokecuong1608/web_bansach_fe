@@ -3,7 +3,11 @@ import DanhSachSanPham from "../product/DanhSachSanPham";
 import Banner from "./compoments/Banner";
 import Carousel from "./compoments/Carousel";
 
-const HomePage = () => {
+interface HomePageProps {
+    tuKhoaTimKiem: string;
+}
+//luôn nhận được thông tin tìm kiếm 
+function HomePage({ tuKhoaTimKiem }: HomePageProps) {
     return (
         <div>
 
@@ -11,7 +15,10 @@ const HomePage = () => {
             {/* slideshow */}
             <Carousel />
             {/* in ra danh sách sản phẩm */}
-            <DanhSachSanPham />
+            {/* truyền vào cập nhật dữ liệu tìm kiếm  từ server */}
+            <DanhSachSanPham
+                tuKhoaTimKiem={tuKhoaTimKiem}
+            />
         </div>
     )
 }

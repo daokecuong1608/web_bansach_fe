@@ -2,12 +2,18 @@ import { useEffect, useState } from "react";
 
 import SachModel from "../../models/SachModel";
 import SachProps from "./compoments/SachProps";
-import { layToanBoSach } from "../../api/SachApi";
+import { layToanBoSach, timKiemSach } from "../../api/SachApi";
 import { error } from "console";
 import { Phantrang } from "../utils/PhanTrang";
 
-const DanhSachSanPham: React.FC = () => {
+interface DanhSachSanPhamProps {
+    tuKhoaTimKiem: string;
 
+}
+
+
+//hiển thị danh sách sách từ cơ sở dữ liệu
+function DanhSachSanPham({ tuKhoaTimKiem }: DanhSachSanPhamProps) {
     const [danhSachQuyenSach, setDanhSachQuyenSach] = useState<SachModel[]>([]);
     const [dangTaiDuLieu, setDangTaiDuLieu] = useState(true);
     const [baoLoi, setBaoLoi] = useState(null);
@@ -16,19 +22,34 @@ const DanhSachSanPham: React.FC = () => {
     const [tongSoSach, setTongSoSach] = useState(0);
 
     useEffect(() => {
-        layToanBoSach(trangHienTai - 1).then(
-            kq => {
-                setDanhSachQuyenSach(kq.ketQua);//gán gia trị mà mình lấy được từ server vào danhSachQuyenSach
-                setTongSoTrang(kq.tongSoTrang);
-                setDangTaiDuLieu(false);//đã tải xong dữ liệu
-            }
-        ).catch(
-            error => {
-                setDangTaiDuLieu(false);//đã tải xong dữ liệu
-                setBaoLoi(error.message);//gặp lỗi thì báo lỗi
-            });
+        if (tuKhoaTimKiem === '') {
+            layToanBoSach(trangHienTai - 1).then(
+                kq => {
+                    setDanhSachQuyenSach(kq.ketQua);//gán gia trị mà mình lấy được từ server vào danhSachQuyenSach
+                    setTongSoTrang(kq.tongSoTrang);
+                    setDangTaiDuLieu(false);//đã tải xong dữ liệu
+                }
+            ).catch(
+                error => {
+                    setDangTaiDuLieu(false);//đã tải xong dữ liệu
+                    setBaoLoi(error.message);//gặp lỗi thì báo lỗi
+                });
+        } else {
 
-    }, [trangHienTai])//chỉ gọi 1 lần 
+            timKiemSach(tuKhoaTimKiem).then(
+                kq => {
+                    setDanhSachQuyenSach(kq.ketQua);//gán gia trị mà mình lấy được từ server vào danhSachQuyenSach
+                    setTongSoTrang(kq.tongSoTrang);
+                    setDangTaiDuLieu(false);//đã tải xong dữ liệu
+                }
+            ).catch(
+                error => {
+                    setDangTaiDuLieu(false);//đã tải xong dữ liệu
+                    setBaoLoi(error.message);//gặp lỗi thì báo lỗi
+                });
+
+        }
+    }, [trangHienTai, tuKhoaTimKiem])//chỉ gọi 1 lần 
 
 
     const phanTrang = (trang: number) => {
@@ -50,6 +71,17 @@ const DanhSachSanPham: React.FC = () => {
         )
     }
 
+    if (danhSachQuyenSach.length === 0) {
+        return (
+            <div className="container">
+                <div className="row mt-4">
+                    <h1>Không tìm thấy sách</h1>
+                </div>
+
+            </div>
+        )
+    }
+
     // nếu ko gặp lỗi đoạn trên thì đoạn sau sẽ chạy
     return (
         <div className="container">
@@ -59,7 +91,6 @@ const DanhSachSanPham: React.FC = () => {
                     <SachProps
                         key={sach.maSach}
                         sach={sach} />
-
                 )
                 )
             }

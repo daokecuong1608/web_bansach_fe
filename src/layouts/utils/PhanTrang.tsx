@@ -5,10 +5,10 @@ interface PhanTrangInterface {
     tongSoTrang: number;
     phanTrang: any
 }
-
+//phân trang hiển thị danh sách 
 export const Phantrang: React.FC<PhanTrangInterface> = (props) => {
 
-    const danhSachTrang = []
+    const danhSachTrang = [];
     //set trang 
     if (props.trangHienTai === 1) {
         danhSachTrang.push(props.trangHienTai)
@@ -41,23 +41,26 @@ export const Phantrang: React.FC<PhanTrangInterface> = (props) => {
     return (
         <nav aria-label="...">
             <ul className="pagination">
-                <li className="page-item " onClick={() => props.phanTrang(1)}>
-                    <button className="page-item" >
+                <li className="page-item "
+                    onClick={() => props.phanTrang(1)}>
+                    <button className="page-link" >
                         Trang đầu
                     </button>
                 </li>
 
                 {
                     danhSachTrang.map((trang) => (
-                        <li className="page-item " key={trang} onClick={() => props.phanTrang(trang)}>
-                            <button className={"page-item" + (props.trangHienTai === trang ? " active" : "")} >
+                        <li className="page-item "
+                            key={trang}
+                            onClick={() => props.phanTrang(trang)}>
+                            <button className={"page-link" + (props.trangHienTai === trang ? " active" : "")} >
                                 {trang}
                             </button>
                         </li>
                     ))
                 }
-                <li className="page-item" onClick={props.phanTrang(() => props.tongSoTrang)}>
-                    <button className="page-item"
+                <li className="page-item" onClick={() => props.phanTrang(props.tongSoTrang)}>
+                    <button className="page-link"
                     >Trang cuối </button>
                 </li>
             </ul>

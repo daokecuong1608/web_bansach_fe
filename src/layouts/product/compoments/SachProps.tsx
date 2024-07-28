@@ -55,6 +55,7 @@ const SachProps: React.FC<SachPropsInterface> = (props) => {
         duLieuAnh = danhSachHinhAnh[0].duLieuAnh;
     }
 
+    //form hiển thị sách từ cơ sở dữ liệu 
     return (
         <div className="col-md-3 mt-2">
             <div className="card">

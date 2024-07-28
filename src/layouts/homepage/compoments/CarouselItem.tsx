@@ -54,8 +54,7 @@ const CarouselItem: React.FC<CarouselItemInterface> = (props) => {
         <div className="centered-row">
             <div className="form-content">
                 <img src={duLieuAnh}
-                    className="form-image"
-                />
+                    className="form-image" />
 
                 <div className="form-text">
                     <h5>{props.sach.tenSach}</h5>

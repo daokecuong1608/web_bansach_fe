@@ -56,7 +56,7 @@ async function laySach(duongDan: string): Promise<KetQuaInterface> {
     }
 
     console.log(ketQua);
-    return { ketQua: ketQua, tongSoTrang: tongSoTrang, tongSoSach: tongSoSach };
+    return { ketQua: ketQua, tongSoSach: tongSoSach, tongSoTrang: tongSoTrang };
 }
 
 
@@ -73,3 +73,14 @@ export async function layBaBoSachNew(): Promise<KetQuaInterface> {
     const duongDan: string = 'http://localhost:8080/sach?sort=maSach,desc&page=0&size=3';
     return laySach(duongDan);
 }
+
+export async function timKiemSach(tuKhoaTimKiem: string): Promise<KetQuaInterface> {
+    //xấc định endpoint
+    let duongDan: string = `http://localhost:8080/sach?sort=maSach,desc&size=8&page=0`;
+    if (tuKhoaTimKiem !== '') {
+        duongDan = `http://localhost:8080/sach/search/findByTenSachContaining?tenSach=${tuKhoaTimKiem}&page=0&size=8&sort=maSach,desc
+`;
+        // http://localhost:8080/sach/search/findByTenSachContaining?sort=maSach,desc&size=8&page=0&tenSach=${tuKhoaTimKiem}
+    }
+    return laySach(duongDan);
+}  
