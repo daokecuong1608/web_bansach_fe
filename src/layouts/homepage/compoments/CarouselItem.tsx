@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Book from '../../../models/Book';
 import SachModel from '../../../models/SachModel';
 import HinhAnhModel from '../../../models/HinhAnhModel';
 import { lay1AnhCuaMotSach } from '../../../api/HinhAnhApi';
@@ -58,7 +57,6 @@ const CarouselItem: React.FC<CarouselItemInterface> = (props) => {
 
                 <div className="form-text">
                     <h5>{props.sach.tenSach}</h5>
-                    <p>{props.sach.moTa}</p>
                 </div>
             </div>
         </div>

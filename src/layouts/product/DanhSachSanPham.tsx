@@ -8,12 +8,13 @@ import { Phantrang } from "../utils/PhanTrang";
 
 interface DanhSachSanPhamProps {
     tuKhoaTimKiem: string;
+    maTheLoai: number;
 
 }
 
 
 //hiển thị danh sách sách từ cơ sở dữ liệu
-function DanhSachSanPham({ tuKhoaTimKiem }: DanhSachSanPhamProps) {
+function DanhSachSanPham({ tuKhoaTimKiem, maTheLoai }: DanhSachSanPhamProps) {
     const [danhSachQuyenSach, setDanhSachQuyenSach] = useState<SachModel[]>([]);
     const [dangTaiDuLieu, setDangTaiDuLieu] = useState(true);
     const [baoLoi, setBaoLoi] = useState(null);
@@ -22,7 +23,8 @@ function DanhSachSanPham({ tuKhoaTimKiem }: DanhSachSanPhamProps) {
     const [tongSoSach, setTongSoSach] = useState(0);
 
     useEffect(() => {
-        if (tuKhoaTimKiem === '') {
+        if (tuKhoaTimKiem === '' && maTheLoai === 0) {
+            //nếu ko có sẽ lấy hết sách ra
             layToanBoSach(trangHienTai - 1).then(
                 kq => {
                     setDanhSachQuyenSach(kq.ketQua);//gán gia trị mà mình lấy được từ server vào danhSachQuyenSach
@@ -35,8 +37,7 @@ function DanhSachSanPham({ tuKhoaTimKiem }: DanhSachSanPhamProps) {
                     setBaoLoi(error.message);//gặp lỗi thì báo lỗi
                 });
         } else {
-
-            timKiemSach(tuKhoaTimKiem).then(
+            timKiemSach(tuKhoaTimKiem, maTheLoai).then(
                 kq => {
                     setDanhSachQuyenSach(kq.ketQua);//gán gia trị mà mình lấy được từ server vào danhSachQuyenSach
                     setTongSoTrang(kq.tongSoTrang);
@@ -49,7 +50,7 @@ function DanhSachSanPham({ tuKhoaTimKiem }: DanhSachSanPhamProps) {
                 });
 
         }
-    }, [trangHienTai, tuKhoaTimKiem])//chỉ gọi 1 lần 
+    }, [trangHienTai, tuKhoaTimKiem, maTheLoai])//chỉ gọi 1 lần 
 
 
     const phanTrang = (trang: number) => {
@@ -66,7 +67,7 @@ function DanhSachSanPham({ tuKhoaTimKiem }: DanhSachSanPhamProps) {
     if (baoLoi) {
         return (
             <div>
-                <h1>Gặp lỗi : {baoLoi}</h1>
+                <h1>Gặp lỗii : {baoLoi}</h1>
             </div>
         )
     }

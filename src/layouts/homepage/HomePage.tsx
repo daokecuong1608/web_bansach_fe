@@ -1,3 +1,4 @@
+import { useParams } from "react-router-dom";
 import DanhSachSanPham from "../product/DanhSachSanPham";
 
 import Banner from "./compoments/Banner";
@@ -8,9 +9,23 @@ interface HomePageProps {
 }
 //luôn nhận được thông tin tìm kiếm 
 function HomePage({ tuKhoaTimKiem }: HomePageProps) {
+
+    //lấy thông tin từ url va gan vao bien 
+    const { maTheLoai } = useParams();
+    let maTheLoaiNumber = 0;
+    try {
+        maTheLoaiNumber = parseInt(maTheLoai + '');
+    } catch (error) {
+        maTheLoaiNumber = 0;
+        console.log("loi", error);
+    }
+    //biến ko xác định được giá trị 
+    if (Number.isNaN(maTheLoaiNumber)) {
+        maTheLoaiNumber = 0;
+    }
+
     return (
         <div>
-
             <Banner />
             {/* slideshow */}
             <Carousel />
@@ -18,6 +33,7 @@ function HomePage({ tuKhoaTimKiem }: HomePageProps) {
             {/* truyền vào cập nhật dữ liệu tìm kiếm  từ server */}
             <DanhSachSanPham
                 tuKhoaTimKiem={tuKhoaTimKiem}
+                maTheLoai={maTheLoaiNumber}
             />
         </div>
     )

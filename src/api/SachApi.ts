@@ -74,13 +74,55 @@ export async function layBaBoSachNew(): Promise<KetQuaInterface> {
     return laySach(duongDan);
 }
 
-export async function timKiemSach(tuKhoaTimKiem: string): Promise<KetQuaInterface> {
+export async function timKiemSach(tuKhoaTimKiem: string, maTheLoai: number): Promise<KetQuaInterface> {
     //xấc định endpoint
     let duongDan: string = `http://localhost:8080/sach?sort=maSach,desc&size=8&page=0`;
-    if (tuKhoaTimKiem !== '') {
-        duongDan = `http://localhost:8080/sach/search/findByTenSachContaining?tenSach=${tuKhoaTimKiem}&page=0&size=8&sort=maSach,desc
-`;
-        // http://localhost:8080/sach/search/findByTenSachContaining?sort=maSach,desc&size=8&page=0&tenSach=${tuKhoaTimKiem}
+    if (tuKhoaTimKiem !== '' && maTheLoai === 0) {
+        //tìm kiếm theo tên sách
+        duongDan = `http://localhost:8080/sach/search/findByTenSachContaining?tenSach=${tuKhoaTimKiem}&page=0&size=8&sort=maSach,desc`;
+    } else if (tuKhoaTimKiem === '' && maTheLoai > 0) {
+        duongDan = `http://localhost:8080/sach/search/findByDanhSachTheLoai_MaTheLoai?maTheLoai=${maTheLoai}`;
+    } else if (tuKhoaTimKiem !== '' && maTheLoai > 0) {
+        duongDan = `http://localhost:8080/sach/search/findByTenSachContainingAndDanhSachTheLoai_MaTheLoai?tenSach=${tuKhoaTimKiem}&maTheLoai=${maTheLoai}&page=0&size=8&sort=maSach,desc`;
     }
     return laySach(duongDan);
-}  
+}
+
+export async function laySachTheoMaSach(maSach: number): Promise<SachModel | null> {
+
+    const duongDan: string = `http://localhost:8080/sach/${maSach}`;
+    //lấy dữ liệu từ server
+    let ketQua: SachModel;
+    try {
+
+        //Gọi phuonmg thức request để lấy dữ liệu
+        const response = await fetch(duongDan);
+        if (!response.ok) {
+            throw new Error("Không thể lấy dữ liệu từ server");
+        }
+
+        //lay ra json tù sach dữ liệu
+        const sachData = await response.json();
+
+        if (sachData) {
+            return {
+                maSach: sachData.maSach,
+                tenSach: sachData.tenSach,//co the la undefined
+                giaBan: sachData.giaBan,
+                giaNiemYet: sachData.giaNiemYet,
+                moTa: sachData.moTa,
+                soLuong: sachData.soLuong,
+                tenTacGia: sachData.tenTacGia,
+                trungBinhXepHang: sachData.trungBinhXepHang
+
+            }
+
+        } else {
+            throw new Error("Sách khôn tồn tại");
+        }
+    } catch (error) {
+        console.log("lỗi ", error);
+        return null;
+    }
+
+}

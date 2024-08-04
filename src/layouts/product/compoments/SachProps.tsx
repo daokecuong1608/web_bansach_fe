@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import Book from '../../../models/Book';
 import SachModel from '../../../models/SachModel';
 import HinhAnhModel from '../../../models/HinhAnhModel';
 import { lay1AnhCuaMotSach, layToanBoAnhCuaSach } from '../../../api/HinhAnhApi';
+import { Link } from 'react-router-dom';
 
 
 interface SachPropsInterface {
@@ -60,19 +60,25 @@ const SachProps: React.FC<SachPropsInterface> = (props) => {
         <div className="col-md-3 mt-2">
             <div className="card">
                 {/* kha nang khong co du lieu anh */}
-                <img src={duLieuAnh}
-                    className="card-img-top"
-                    alt={props.sach.tenSach}
-                    style={{ height: '200px' }} />
-
+                <Link to={`/sach/${props.sach.maSach}`}>
+                    <img src={duLieuAnh}
+                        className="card-img-top"
+                        alt={props.sach.tenSach}
+                        style={{ height: '200px' }} />
+                </Link>
                 <div className="card-body">
-                    <h5 className="card-title">{props.sach.tenSach}</h5>
-                    <p className="card-text">{props.sach.moTa}</p>
+
+                    <Link to={`/sach/${props.sach.maSach}`}
+                        style={{ textDecoration: 'none' }}
+                    >
+                        <h5 className="card-title">{props.sach.tenSach}</h5>
+                    </Link>
+
                     <p className="card-text">{props.sach.soLuong}</p>
+
                     <div className="price">
                         <span className="original-price">
                             <strong> {props.sach.giaBan}</strong>
-
                         </span>
                     </div>
 

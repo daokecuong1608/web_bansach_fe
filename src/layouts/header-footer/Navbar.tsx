@@ -1,4 +1,5 @@
 import React, { ChangeEvent, useState } from 'react';
+import { Link, NavLink } from 'react-router-dom';
 
 //nhận dự liệu từ th ch cha truyền xuống (App)
 interface NavbarProps {
@@ -7,14 +8,17 @@ interface NavbarProps {
 }
 
 // thanh công cụ navbar
-const Navbar = ({ tuKhoaTimKiem, setTuKhoaTimKiem }: NavbarProps) => {
+function Navbar({ tuKhoaTimKiem, setTuKhoaTimKiem }: NavbarProps) {
 
     const [tuKhoaTamThoi, setTuKhoaTamThoi] = useState('');
 
+    //onchange được kích hoạt khi giá trị của một phần tử thay đổi
     const onSearchInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+        //khi nhap noi dung vao o tim kiem
         setTuKhoaTamThoi(e.target.value);
     }
 
+    //onclick được kích hoạt khi người dùng nhấp chuột vào một phần tử.(nút ....)
     const handleSearch = () => {
         setTuKhoaTimKiem(tuKhoaTamThoi);
     }
@@ -34,11 +38,11 @@ const Navbar = ({ tuKhoaTimKiem, setTuKhoaTimKiem }: NavbarProps) => {
                     id="navbarSupportedContent">
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                         <li>
-                            <a className="nav-link activ"
-                                href="#"
+                            <NavLink className="nav-link activ"
+                                to="/"
                                 aria-current="page">
                                 Trang chủ
-                            </a>
+                            </NavLink>
                         </li>
 
                         <li className="nav-item dropdown">
@@ -52,19 +56,19 @@ const Navbar = ({ tuKhoaTimKiem, setTuKhoaTimKiem }: NavbarProps) => {
                             <ul className="dropdown-menu"
                                 aria-labelledby="navbarDropdown_1">
                                 <li>
-                                    <a className="dropdown-item" href="#">
+                                    <NavLink className="dropdown-item" to="/1">
                                         Thể loại 1
-                                    </a>
+                                    </NavLink>
                                 </li>
                                 <li>
-                                    <a className="dropdown-item" href="#">
+                                    <NavLink className="dropdown-item" to="/2">
                                         Thể loại 2
-                                    </a>
+                                    </NavLink>
                                 </li>
                                 <li>
-                                    <a className="dropdown-item" href="#">
+                                    <NavLink className="dropdown-item" to="/3">
                                         Thể loại 3
-                                    </a>
+                                    </NavLink>
                                 </li>
                             </ul>
                         </li>
