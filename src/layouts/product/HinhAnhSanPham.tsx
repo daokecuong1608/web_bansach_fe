@@ -3,6 +3,7 @@ import HinhAnhModel from "../../models/HinhAnhModel";
 import { lay1AnhCuaMotSach, layToanBoAnhCuaSach } from "../../api/HinhAnhApi";
 import { Link } from "react-router-dom";
 import { Carousel } from "react-responsive-carousel";
+import 'react-responsive-carousel/lib/styles/carousel.min.css'
 
 interface HinhAnhSanPham {
     maSach: number
@@ -59,28 +60,23 @@ const HinhAnhSanPham: React.FC<HinhAnhSanPham> = (props) => {
 
     //form hiển thị sách từ cơ sở dữ liệu 
     return (
-        <div className="col-md-3 mt-2">
-            <div>'
-                {hinhAnhDangChon && <img src={hinhAnhDangChon.duLieuAnh} />}
-            </div>
-
-            <div className="row">
-                {
-                    danhSachHinhAnh.map((hinhAnh, index) => (
-
-                        <div className={"col-3"} key={index}>
-                            <img onClick={() => chonAnh(hinhAnh)} src={hinhAnh.duLieuAnh} />
-                        </div>
-
-                    )
-                    )
-                }
+        <div className="row">
+            <div className="col-12">
+                <Carousel showArrows={true} showIndicators={true}>
+                    {
+                        danhSachHinhAnh.map((hinhAnh, index) => (
+                            <div key={index}>
+                                <img src={hinhAnh.duLieuAnh}
+                                    alt={`${hinhAnh.tenHinhAnh}`}
+                                    style={{ maxWidth: "250px" }}
+                                />
+                            </div>
+                        )
+                        )
+                    }
+                </Carousel>
             </div>
         </div>
-
-
     )
-
-
 }
 export default HinhAnhSanPham;

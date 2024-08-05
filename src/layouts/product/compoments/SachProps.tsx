@@ -3,6 +3,8 @@ import SachModel from '../../../models/SachModel';
 import HinhAnhModel from '../../../models/HinhAnhModel';
 import { lay1AnhCuaMotSach, layToanBoAnhCuaSach } from '../../../api/HinhAnhApi';
 import { Link } from 'react-router-dom';
+import renderRating from '../../utils/Start';
+import DinhDangSo from '../../utils/DinhDangSo';
 
 
 interface SachPropsInterface {
@@ -74,21 +76,24 @@ const SachProps: React.FC<SachPropsInterface> = (props) => {
                         <h5 className="card-title">{props.sach.tenSach}</h5>
                     </Link>
 
-                    <p className="card-text">{props.sach.soLuong}</p>
 
-                    <div className="price">
-                        <span className="original-price">
-                            <strong> {props.sach.giaBan}</strong>
+                    <div className="price row">
+                        <span className="original-price col-6 text-end">
+                            <del> {DinhDangSo(props.sach.giaNiemYet ? props.sach.giaNiemYet : 0)}</del>
+                        </span>
+                        <span className="original-price col-6 text-end">
+                            <strong> {DinhDangSo(props.sach.giaBan ? props.sach.giaBan : 0)}</strong>
                         </span>
                     </div>
 
                     <div className="row mt-2" role="group">
                         <div className="col-6">
-                            <a href="#" className="btn btn-secondary btn-block">
+                            {renderRating(props.sach.trungBinhXepHang ? props.sach.trungBinhXepHang : 0)}
+                        </div>
+                        <div className="col-6 text-end">
+                            <a href="#" className="btn btn-secondary btn-block me-2">
                                 <i className="fas fa-heart"></i>
                             </a>
-                        </div>
-                        <div className="col-6">
                             <a href="#" className="btn btn-danger btn-block">
                                 <i className="fas fa-shopping-cart"></i>
                             </a>

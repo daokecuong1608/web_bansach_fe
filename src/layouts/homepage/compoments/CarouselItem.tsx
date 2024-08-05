@@ -3,6 +3,7 @@ import SachModel from '../../../models/SachModel';
 import HinhAnhModel from '../../../models/HinhAnhModel';
 import { lay1AnhCuaMotSach } from '../../../api/HinhAnhApi';
 import './CarouselItem.css';
+import renderRating from '../../utils/Start';
 
 interface CarouselItemInterface {
     sach: SachModel;
@@ -54,9 +55,10 @@ const CarouselItem: React.FC<CarouselItemInterface> = (props) => {
             <div className="form-content">
                 <img src={duLieuAnh}
                     className="form-image" />
-
+                <br />
                 <div className="form-text">
                     <h5>{props.sach.tenSach}</h5>
+                    <h6>{renderRating(props.sach.trungBinhXepHang ? props.sach.trungBinhXepHang : 0)}</h6>
                 </div>
             </div>
         </div>
