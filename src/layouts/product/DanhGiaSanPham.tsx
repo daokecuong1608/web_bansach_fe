@@ -57,8 +57,8 @@ const DanhGiaSanPham: React.FC<DanhGiaSanPham> = (props) => {
         <div className="container mt-2 mb-2 text-center">
             <h3>Đánh giá sản phẩm:</h3>
             {
-                danhSachDanhGia.map((danhGia, index) => (
 
+                danhSachDanhGia.map((danhGia, index) => (
                     <div className="row" key={index}>
                         <div className="col-4 text-end">
                             <h3>{renderRating(danhGia.diemXepHang ? danhGia.diemXepHang : 0)}</h3>
@@ -70,19 +70,6 @@ const DanhGiaSanPham: React.FC<DanhGiaSanPham> = (props) => {
                     </div>
                 )
                 )
-
-                // danhSachDanhGia.map((danhGia, index) => (
-                //     <div className="row" key={index}>
-                //         <div className="col-4 text-end">
-                //             <h3>{renderRating(danhGia.diemXepHang ? danhGia.diemXepHang : 0)}</h3>
-                //         </div>
-                //         <div className="col-8 text-start">
-                //             <p>{danhGia.nhanXet}</p>
-
-                //         </div>
-                //     </div>
-                // )
-                // )
             }
         </div >
     )

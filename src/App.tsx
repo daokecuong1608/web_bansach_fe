@@ -8,6 +8,7 @@ import { layToanBoSach } from './api/SachApi';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import About from './layouts/about/About';
 import ChiTietSanPham from './layouts/product/ChiTietSanPham';
+import DangKyNguoiDung from './user/DangKyNguoiDung';
 
 function App() {
   const [tuKhoaTimKiem, setTuKhoaTimKiem] = useState('');
@@ -25,8 +26,8 @@ function App() {
           <Route path='/' element={<HomePage tuKhoaTimKiem={tuKhoaTimKiem} />}></Route>
           <Route path='/:maTheLoai' element={<HomePage tuKhoaTimKiem={tuKhoaTimKiem} />}></Route>
           <Route path='/sach/:maSach' element={<ChiTietSanPham />}></Route>
-
           <Route path='/about' element={<About />}></Route>
+          <Route path='/dangKy' element={<DangKyNguoiDung />}></Route>
 
         </Routes>
         {/* //chân trang (footer) */}
