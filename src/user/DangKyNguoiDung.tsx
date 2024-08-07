@@ -104,11 +104,14 @@ const DangKyNguoiDung = () => {
             if (data === "true") {
                 setErrorEmail('Email đã tồn tại');
                 return true;
-            } else if (!validateEmail(email)) {
-                setErrorEmail('Email không hợp lệ');
-                return true;
+            } else {
+                // if (!validateEmail(email)) {
+                //     setErrorEmail('Email không hợp lệ');
+
+                // }
+                return false;
             }
-            return false;
+
         } catch (error) {
             console.log("error", error);
             return false;
