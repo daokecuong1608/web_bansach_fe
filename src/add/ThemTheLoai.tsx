@@ -76,6 +76,8 @@ const ThemTheLoai = () => {
                         value={tenTheLoai}
                         onChange={handleTenTheLoaiChange}
                     />
+                    <div style={{ color: "red" }}>{error}</div>
+
                 </div>
                 <button type="submit" className="btn btn-primary">Thêm thể loại </button>
                 <div style={{ color: "green" }}>{thongBao}</div>

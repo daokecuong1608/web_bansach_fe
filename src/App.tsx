@@ -10,6 +10,9 @@ import About from './layouts/about/About';
 import ChiTietSanPham from './layouts/product/ChiTietSanPham';
 import DangKyNguoiDung from './user/DangKyNguoiDung';
 import ThemTheLoai from './add/ThemTheLoai';
+import ThemHinhThucGiaoHang from './add/ThemHinhThucGiaoHang';
+import ThemHinhThucThanhToan from './add/ThemHinhThucThanhToan';
+import ThemSach from './add/ThemSach';
 
 function App() {
   const [tuKhoaTimKiem, setTuKhoaTimKiem] = useState('');
@@ -30,6 +33,10 @@ function App() {
           <Route path='/about' element={<About />}></Route>
           <Route path='/dangKy' element={<DangKyNguoiDung />}></Route>
           <Route path='/themTheLoai' element={<ThemTheLoai />}></Route>
+          <Route path='/themHinhThucGiaoHang' element={<ThemHinhThucGiaoHang />}></Route>
+          <Route path='/themHinhThucThanhToan' element={<ThemHinhThucThanhToan />}></Route>
+          <Route path='/themSach' element={<ThemSach />}></Route>
+
         </Routes>
         {/* //chân trang (footer) */}
         <Footer />

@@ -107,11 +107,10 @@ const DangKyNguoiDung = () => {
             } else {
                 // if (!validateEmail(email)) {
                 //     setErrorEmail('Email không hợp lệ');
-
+                //    return true;
                 // }
                 return false;
             }
-
         } catch (error) {
             console.log("error", error);
             return false;

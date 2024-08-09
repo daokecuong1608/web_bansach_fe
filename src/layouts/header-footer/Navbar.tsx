@@ -27,7 +27,7 @@ function Navbar({ tuKhoaTimKiem, setTuKhoaTimKiem }: NavbarProps) {
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <div className="container-fluid">
-                <a className='navbar-brand' href='#'>BookStore</a>
+                <a className='navbar-brand' href='/'>BookStore</a>
                 <button className='navbar-toggler' type="button"
                     data-bs-toggle="collapse" data-bs-target="#navbarSupportContent"
                     aria-controls="navbarSupportContent" aria-expanded="false" aria-label="Toggle navigation" >
